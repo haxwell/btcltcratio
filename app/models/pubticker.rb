@@ -3,18 +3,8 @@ require 'uri'
 
 class Pubticker < ActiveRecord::Base
 
-    attr_accessor :mid
-    attr_accessor :bid
-    attr_accessor :ask
-    attr_accessor :last_price
-    attr_accessor :low
-    attr_accessor :high
-    attr_accessor :volume
-    attr_accessor :timestamp
-
-    attr_accessor :tickerSymbol
-
     def initialize
+        super()
         @pubtickerURLFunction = lambda{ "https://api.bitfinex.com/v1/pubticker/" + self.tickerSymbol }
 
         @jsonResponseFunction = lambda{ 
@@ -28,7 +18,6 @@ class Pubticker < ActiveRecord::Base
 
             JSON.parse res.body
         }
-
     end
 
     def pubtickerURLFunction=(func) 
@@ -40,8 +29,8 @@ class Pubticker < ActiveRecord::Base
     end
 
     def populateUsingInternetAPI
-        if @tickerSymbol == nil 
-            raise ArgumentError
+        if self.tickerSymbol == nil 
+            raise ArgumentError, "The 'tickerSymbol' attribute has not been set"
         end
 
         populate(@jsonResponseFunction.call)
@@ -49,15 +38,15 @@ class Pubticker < ActiveRecord::Base
 
     private
     def populate(responseHash)
-        @mid = getHashValueForSymbolKey(:mid, responseHash) 
-        @bid = getHashValueForSymbolKey(:bid, responseHash) 
-        @ask = getHashValueForSymbolKey(:ask, responseHash) 
-        @low = getHashValueForSymbolKey(:low, responseHash) 
-        @high = getHashValueForSymbolKey(:high, responseHash) 
-        @volume = getHashValueForSymbolKey(:volume, responseHash) 
-        @last_price = getHashValueForSymbolKey(:last_price, responseHash) 
-        @timestamp = getHashValueForSymbolKey(:timestamp, responseHash) 
-        @last_price = getHashValueForSymbolKey(:last_price, responseHash)
+        self.mid = getHashValueForSymbolKey(:mid, responseHash) 
+        self.bid = getHashValueForSymbolKey(:bid, responseHash) 
+        self.ask = getHashValueForSymbolKey(:ask, responseHash) 
+        self.low = getHashValueForSymbolKey(:low, responseHash) 
+        self.high = getHashValueForSymbolKey(:high, responseHash) 
+        self.volume = getHashValueForSymbolKey(:volume, responseHash) 
+        self.last_price = getHashValueForSymbolKey(:last_price, responseHash) 
+        self.timestamp = getHashValueForSymbolKey(:timestamp, responseHash) 
+        self.last_price = getHashValueForSymbolKey(:last_price, responseHash)
     end
 
     private

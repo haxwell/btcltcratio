@@ -22,5 +22,25 @@ module Btcratio
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    Thread.new {
+        require 'rufus-scheduler'
+
+        sch = Rufus::Scheduler.new
+
+        sch.every '30s' do 
+            btc = Pubticker.new
+            btc.tickerSymbol = 'btcusd'
+            btc.populateUsingInternetAPI
+
+            ltc = Pubticker.new
+            ltc.tickerSymbol = 'ltcusd'
+            ltc.populateUsingInternetAPI
+
+            btc.save
+            ltc.save
+        end
+    }
+
   end
 end
