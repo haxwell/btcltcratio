@@ -1,7 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-oone:
-  tickerSymbol: MyString
+one:
+  last_price: 100
+  tickerSymbol: btcusd
 
-ttwo:
-  tickerSymbol: MyString
+two:
+  last_price: 10
+  tickerSymbol: ltcusd 
+
+three:
+  last_price: 100
+  tickerSymbol: btcusd
+
+four:
+  last_price: 10
+  tickerSymbol: ltcusd 
