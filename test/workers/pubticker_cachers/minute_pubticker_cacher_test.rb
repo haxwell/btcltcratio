@@ -6,7 +6,10 @@ class MinutePubtickerCacherTest < ActiveSupport::TestCase
     test "update method works" do
         sut = MinutePubtickerCacher.new
 
-        assert true
+        v = sut.updateCache
+
+        # TODO do some better checking here.
+        assert v.avg == 10
     end
 end
 

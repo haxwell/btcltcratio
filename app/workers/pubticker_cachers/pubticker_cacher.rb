@@ -3,6 +3,16 @@ require 'pubticker_cachers/period_ratio_calculator'
 class PubtickerCacher
 
     private
+    def writeRatiosToCache(timePeriod, tickerSymbolA, tickerSymbolB)
+        ratio = getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB) 
+
+        v = CachedPubticker.new(ratio)
+        v.save
+
+        v
+    end
+
+    private
     def getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB)
         # NOTE this all works because I assume that the timestamp of the newest row is 
         # the closest approximation I can get of when the database was last updated.
@@ -32,7 +42,7 @@ class PubtickerCacher
         # send arrays of pubticker objects to calculator
         ratios = PeriodRatioCalculator.new.calculate(ba1, ba2)
 
-        ratios = ratios.merge({:period_begin => periodBeginDate.to_f, :period_end => periodEndDate.to_f})
+        ratios = ratios.merge({:period_begin => periodBeginDate.to_f, :period_end => periodEndDate.to_f, :timeperiod => timePeriod})
     end
 
 end
