@@ -1,9 +1,11 @@
 <h1>btcltcratio index page!</h1>
 
-btc: <%= @btc.last_price %>
-ltc: <%= @ltc.last_price %>
+btc: <%= @btc['last_price'] %>
+ltc: <%= @ltc['last_price'] %>
 
 ratio: <%= @ratio %>
 
-<%= Time.at(@btc.timestamp).to_datetime %>
+<%= Time.at(@btc['timestamp']).to_datetime %>
 
+<br/><br/>
+<div class="beggin_strip">If this site helped you become wealthier, send a brotha a couple coin. [insert btc addr here] [insert ltc addr here]</div>
