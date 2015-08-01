@@ -28,7 +28,7 @@ module Btcratio
 
         sch = Rufus::Scheduler.new
 
-        sch.every '30s' do 
+        sch.every '90s' do 
             btc = Pubticker.new
             btc.tickerSymbol = 'btcusd'
             btc.populateUsingInternetAPI
