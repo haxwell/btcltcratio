@@ -3,15 +3,19 @@
 one:
   last_price: 100
   tickerSymbol: btcusd
+  timestamp: 1438366771.17564
 
 two:
   last_price: 10
-  tickerSymbol: ltcusd 
+  tickerSymbol: ltcusd
+  timestamp: 1438366772.17574
 
 three:
   last_price: 100
   tickerSymbol: btcusd
+  timestamp: 1438366858.52704
 
 four:
   last_price: 10
   tickerSymbol: ltcusd 
+  timestamp: 1438366861.59544

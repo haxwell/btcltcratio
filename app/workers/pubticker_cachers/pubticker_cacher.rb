@@ -8,16 +8,17 @@ class PubtickerCacher
         # the closest approximation I can get of when the database was last updated.
 
         #get the most recent row
-        a = Pubticker.order('id desc').limit(1).to_json
+        a = Pubticker.order('timestamp desc').limit(1).to_json
 
         #using its created by timestamp
         aa = JSON.parse a
         aa = aa[0]
-        periodEndDate = aa['created_at'].to_datetime
+        periodEndDate = Time.at(aa['timestamp']).to_datetime
 
         #get the rows previous to it that cover the time period
         periodBeginDate = TimePeriodConstants.new.getBeginDate(timePeriod, periodEndDate)
-        b = Pubticker.where(created_at: periodBeginDate..periodEndDate).order('id desc')
+
+        b = Pubticker.where(timestamp: (periodBeginDate.to_f)..(periodEndDate.to_f)).order('timestamp desc')
         ba = b.to_a
 
         ba1 = ba.select { |x| x.tickerSymbol == tickerSymbolA }        
