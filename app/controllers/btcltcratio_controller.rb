@@ -1,19 +1,13 @@
 class BtcltcratioController < ApplicationController
-    def index
-      @btc = Pubticker.new
-      @btc.tickerSymbol = "btcusd"
-      @btc.populateUsingInternetAPI
+    def index 
+        @btc = JSON.parse Pubticker.where('tickerSymbol' => 'btcusd').order('id desc').limit(1).to_json
+        @ltc = JSON.parse Pubticker.where('tickerSymbol' => 'ltcusd').order('id desc').limit(1).to_json
 
-      @ltc = Pubticker.new
-      @ltc.tickerSymbol = "ltcusd"
-      @ltc.populateUsingInternetAPI
+        @btc = @btc[0]
+        @ltc = @ltc[0]
 
-      @ratio = @btc.last_price.to_f / @ltc.last_price.to_f
-
-      @btc.save
-      @ltc.save
+        # TODO read from cached database records instead.
+        @ratio = @btc['last_price'] / @ltc['last_price']
     end
 
-  def show
-  end
 end
