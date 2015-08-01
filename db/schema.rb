@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728203307) do
+ActiveRecord::Schema.define(version: 20150801021533) do
 
   create_table "btcpubtickers", force: :cascade do |t|
     t.float    "mid"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(version: 20150728203307) do
     t.float    "timestamp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cached_pubtickers", force: :cascade do |t|
+    t.string   "ticker_symbol_a"
+    t.string   "ticker_symbol_b"
+    t.float    "high"
+    t.float    "low"
+    t.float    "avg"
+    t.float    "period_begin"
+    t.float    "period_end"
+    t.integer  "timeperiod"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "ltcpubtickers", force: :cascade do |t|
