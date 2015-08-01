@@ -4,7 +4,7 @@ class PubtickerCacher
 
     private
     def getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB)
-        # NOTE this all works because I assume that the created_at date of the newest row is 
+        # NOTE this all works because I assume that the timestamp of the newest row is 
         # the closest approximation I can get of when the database was last updated.
 
         #get the most recent row
@@ -31,6 +31,8 @@ class PubtickerCacher
 
         # send arrays of pubticker objects to calculator
         ratios = PeriodRatioCalculator.new.calculate(ba1, ba2)
+
+        ratios = ratios.merge({:period_begin => periodBeginDate.to_f, :period_end => periodEndDate.to_f})
     end
 
 end
