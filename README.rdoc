@@ -1,3 +1,28 @@
+== WHAT THIS IS, AND HOW IT WORKS
+
+btcltcratio polls a web service to retrieve the current prices for bitcoin 
+and litecoin, and stores them in a database. This information is then used
+to present to the user a historical view of the ratio between those two
+prices. Research 'Trading Gold Silver Ratio' for info on why that is useful.
+
+As the application begins, it launches two threads. One to poll the web
+service, and another to calculate the ratio over various time periods. These
+are called the 'polling thread', and the 'update cache thread' respectively.
+
+The polling thread creates a Pubticker for each currency (bitcoin or litecoin)
+and tells the Pubticker to populate itself. Pubticker is an ActiveRecord
+so it can be considered a row in the Pubticker table in the database. 
+
+The update cache thread uses a collection of worker classes called 
+PubtickerCachers to do its work. For each PubtickerCacher in a 
+PubtickerCacherList, the thread tells it to do its thing. Each PubtickerCacher
+is written to do the necessary calculations for its assigned time period.
+So, for instance, there is a WeekPubtickerCacher which reads Pubticker table
+rows for the past week, and creates a single row in the PubtickerCacher
+table with the values it calculates.
+
+And, in a nutshell, thats how it all works.
+
 == README
 
 This README would normally document whatever steps are necessary to get the
@@ -6,6 +31,7 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
+2.2.2p95
 
 * System dependencies
 
