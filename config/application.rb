@@ -23,12 +23,19 @@ module Btcratio
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    REFRESH_PERIOD_IN_SECONDS = 20
+    UPDATE_CACHE_PERIOD_IN_SECONDS = REFRESH_PERIOD_IN_SECONDS + 15
+
     Thread.new {
         require 'rufus-scheduler'
 
+        puts "attempting to start bfx polling thread..."
+        
         sch = Rufus::Scheduler.new
 
-        sch.every '90s' do 
+        delay = REFRESH_PERIOD_IN_SECONDS 
+
+        sch.every delay.to_s+'s' do 
             btc = Pubticker.new
             btc.tickerSymbol = 'btcusd'
             btc.populateUsingInternetAPI
@@ -40,6 +47,25 @@ module Btcratio
             btc.save
             ltc.save
         end
+
+        puts "bfx polling thread started."
+    }
+
+    Thread.new {
+        require 'rufus-scheduler'
+
+        puts "attempting to start update-cache thread..."
+
+        sch = Rufus::Scheduler.new
+
+        delay = UPDATE_CACHE_PERIOD_IN_SECONDS 
+
+        sch.every delay.to_s+'s' do
+            list = PubtickerCacherList.new.list
+            list.each { |pc| pc.updateCache; }
+        end
+
+        puts "update-cache thread started."
     }
 
   end
