@@ -4,18 +4,24 @@ class PubtickerCacher
 
     private
     def writeRatiosToCache(timePeriod, tickerSymbolA, tickerSymbolB)
+        puts "checking for cached timeperiod " + timePeriod.to_s
+        v = CachedPubticker.find_by(:timeperiod => timePeriod)
+
+        (v == nil) ? (puts "No cached records for timeperiod " + timePeriod.to_s) : (puts "Found cached records for timeperiod " + timePeriod.to_s)
+
+        puts "2 WriteRatiosToCache for timePeriod = " + timePeriod.to_s
         ratio = getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB) 
 
-        v = CachedPubticker.new(ratio)
-        v.save
+        (v == nil) ? v = CachedPubticker.new(ratio) : v.update(ratio)
 
+#        v.save
         v
     end
 
     private
     def getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB)
-        # NOTE this all works because I assume that the timestamp of the newest row is 
-        # the closest approximation I can get of when the database was last updated.
+        # NOTE this all works because I assume that the timestamp (from bitfinex, not the Rails 'created at' stamp)
+        # of the newest row is the closest approximation I can get of when the database was last updated.
 
         #get the most recent row
         a = Pubticker.order('timestamp desc').limit(1).to_json
@@ -42,7 +48,8 @@ class PubtickerCacher
         # send arrays of pubticker objects to calculator
         ratios = PeriodRatioCalculator.new.calculate(ba1, ba2)
 
-        ratios = ratios.merge({:period_begin => periodBeginDate.to_f, :period_end => periodEndDate.to_f, :timeperiod => timePeriod})
+        # add some extra columns
+        ratios = ratios.merge({:ticker_symbol_a => tickerSymbolA, :ticker_symbol_b => tickerSymbolB, :period_begin => periodBeginDate.to_f, :period_end => periodEndDate.to_f, :timeperiod => timePeriod})
     end
 
 end

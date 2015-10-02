@@ -3,6 +3,7 @@ require 'pubticker_cachers/pubticker_cacher'
 
 class MinutePubtickerCacher < PubtickerCacher
     def updateCache
+        puts "--------------------fdsafds---------------------"
         writeRatiosToCache(TimePeriodConstants::MINUTE, 'btcusd', 'ltcusd')
     end
 

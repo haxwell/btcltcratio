@@ -20,7 +20,7 @@ class PeriodRatioCalculator
         avg = sum / arr.size;
 
         # find the high and low ratio for the period
-        low = 0; high = 0; arr.each {|x| (x > high) ? high = x : nil; (x < low) ? low = x : nil; }
+        low = 9999999; high = 0; arr.each {|x| (x > high) ? high = x : nil; (x < low) ? low = x : nil; }
 
         #return it all
         {:high => high, :low => low, :avg => avg}
