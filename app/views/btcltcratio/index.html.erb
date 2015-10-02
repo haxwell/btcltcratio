@@ -2,10 +2,15 @@
 
 btc: <%= @btc['last_price'] %>
 ltc: <%= @ltc['last_price'] %>
-
-ratio: <%= @ratio %>
-
-<%= Time.at(@btc['timestamp']).to_datetime %>
-
+</br>
+ratio: <%= "%.3f" % @ratio %></br>
+ratio (minute): avg <%= "%.3f" % @ratio_minute['avg'] %> high <%= "%.3f" % @ratio_minute['high'] %> low <%= "%.3f" % @ratio_minute['low'] %> </br>
+ratio (half hour): avg <%= "%.3f" % @ratio_half_hour['avg'] %> high <%= "%.3f" % @ratio_half_hour['high'] %> low <%= "%.3f" % @ratio_half_hour['low'] %> </br>
+ratio (hour): avg <%= "%.3f" % @ratio_hour['avg'] %> high <%= "%.3f" % @ratio_hour['high'] %> low <%= "%.3f" % @ratio_hour['low'] %> </br>
+ratio (half day): avg <%= "%.3f" % @ratio_half_day['avg'] %> high <%= "%.3f" % @ratio_half_day['high'] %> low <%= "%.3f" % @ratio_half_day['low'] %> </br>
+ratio (day): avg <%= "%.3f" % @ratio_day['avg'] %> high <%= "%.3f" % @ratio_day['high'] %> low <%= "%.3f" % @ratio_day['low'] %> </br>
+</br>
+<%= Time.at(@btc['timestamp']).to_datetime %></br>
+</br>
 <br/><br/>
 <div class="beggin_strip">If this site helped you become wealthier, send a brotha a couple coin. [insert btc addr here] [insert ltc addr here]</div>
