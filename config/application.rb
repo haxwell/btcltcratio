@@ -68,5 +68,20 @@ module Btcratio
         puts "update-cache thread started."
     }
 
+    Thread.new {
+        require 'rufus-scheduler'
+
+        sch = Rufus::Scheduler.new
+
+        delay = 60 * 60 * 12; # 12 hours
+
+        sch.every delay.to_s+'s' do
+            times = PubtickerCacher.getPeriodBeginAndEndTime(TimePeriodConstants::YEAR)
+            Pubticker.where("created_at <= ?", times[0].to_s.sub(" UTC", "")).delete
+
+            puts "!!! Records older than " + times[0].to_s + " were deleted, so as to keep the DB from growing too large."
+        end
+    }
+
   end
 end

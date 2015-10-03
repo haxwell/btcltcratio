@@ -15,7 +15,8 @@ class PubtickerCacher
         cnt > 0
     end
 
-    private
+    #private
+    ## TODO this is a utility method.. should be in its own namespace
     def getPeriodBeginAndEndTime(timePeriod)
         periodEndTime = nil
         periodBeginTime = nil
