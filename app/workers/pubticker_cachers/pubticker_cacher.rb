@@ -14,7 +14,7 @@ class PubtickerCacher
 
         (v == nil) ? v = CachedPubticker.new(ratio) : v.update(ratio)
 
-#        v.save
+        v.save
         v
     end
 
@@ -24,19 +24,19 @@ class PubtickerCacher
         #get the most recent row
         a = Pubticker.order('created_at desc').limit(1).to_json
 
-        puts "--> " + a.to_s
+        #puts "--> " + a.to_s
         
         aa = JSON.parse a
         aa = aa[0]
         periodEndTime = DateTime.parse(aa['created_at']).to_time.utc
 
-        puts "periodEndTime: " + periodEndTime.to_s
+        #puts "periodEndTime: " + periodEndTime.to_s
 
         #get the rows previous to it that cover the time period
         periodBeginTime = TimePeriodConstants.new.getBeginDate(timePeriod, periodEndTime)
 
-        puts "periodBeginTime: " + periodBeginTime.to_s
-        puts "periodEndTime: " + periodEndTime.to_s
+        #puts "periodBeginTime: " + periodBeginTime.to_s
+        #puts "periodEndTime: " + periodEndTime.to_s
 
         periodEndTime = periodEndTime + 1;
 
@@ -48,8 +48,8 @@ class PubtickerCacher
         ba1 = ba.select { |x| x.tickerSymbol == tickerSymbolA }
         ba2 = ba.select { |x| x.tickerSymbol == tickerSymbolB }
 
-        puts "tickerSymbolA size = " + ba1.size.to_s
-        puts "tickerSymbolB size = " + ba2.size.to_s
+        #puts "tickerSymbolA size = " + ba1.size.to_s
+        #puts "tickerSymbolB size = " + ba2.size.to_s
 
         # ensure arrays are the same size
         unless ba1.size == ba2.size 
