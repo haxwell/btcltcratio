@@ -3,19 +3,55 @@ require 'pubticker_cachers/period_ratio_calculator'
 class PubtickerCacher
 
     private
-    def writeRatiosToCache(timePeriod, tickerSymbolA, tickerSymbolB)
-        puts "checking for cached timeperiod " + timePeriod.to_s
-        v = CachedPubticker.find_by(:timeperiod => timePeriod)
+    def isSufficientPubtickerDataAvailable(timePeriod)
+        cnt = 0
+        times = getPeriodBeginAndEndTime(timePeriod)
 
-        (v == nil) ? (puts "No cached records for timeperiod " + timePeriod.to_s) : (puts "Found cached records for timeperiod " + timePeriod.to_s)
+        if times[0] != nil && times[1] != nil
+            cnt = Pubticker.where("created_at <= ?", times[0].to_s.sub(" UTC", "")).count
+            puts "-- isSufficientPubtickerDataAvailable(" + timePeriod.to_s + ") is returning " + (cnt > 0).to_s
+        end
 
-        puts "2 WriteRatiosToCache for timePeriod = " + timePeriod.to_s
-        ratio = getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB) 
+        cnt > 0
+    end
 
-        (v == nil) ? v = CachedPubticker.new(ratio) : v.update(ratio)
+    private
+    def getPeriodBeginAndEndTime(timePeriod)
+        periodEndTime = nil
+        periodBeginTime = nil
 
-        v.save
-        v
+        #get the most recent row
+        aa = JSON.parse Pubticker.order('created_at desc').limit(1).to_json
+        aa = aa[0]
+
+        if aa.size > 0
+            periodEndTime = DateTime.parse(aa['created_at']).to_time.utc
+
+            #get the rows previous to it that cover the time period
+            periodBeginTime = TimePeriodConstants.new.getBeginDate(timePeriod, periodEndTime)
+        end
+
+        [periodBeginTime, periodEndTime]
+    end
+
+    private
+    def writeRatiosToCache(tickerSymbolA, tickerSymbolB)
+        timePeriod = getTimePeriod()
+
+        if isSufficientPubtickerDataAvailable(timePeriod)
+            puts "checking for cached timeperiod " + timePeriod.to_s
+            v = CachedPubticker.find_by(:timeperiod => timePeriod)
+
+            (v == nil) ? (puts "No cached records for timeperiod " + timePeriod.to_s) : (puts "Found cached records for timeperiod " + timePeriod.to_s)
+
+            puts "2 WriteRatiosToCache for timePeriod = " + timePeriod.to_s
+            ratio = getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB) 
+
+            (v == nil) ? v = CachedPubticker.new(ratio) : v.update(ratio)
+
+            v.save
+            v
+        end
     end
 
     private
@@ -63,6 +99,10 @@ class PubtickerCacher
 
         # add some extra columns
         ratios = ratios.merge({:ticker_symbol_a => tickerSymbolA, :ticker_symbol_b => tickerSymbolB, :period_begin => periodBeginTime.to_f, :period_end => periodEndTime.to_f, :timeperiod => timePeriod})
+    end
+
+    def getTimePeriod
+        -1
     end
 
 end

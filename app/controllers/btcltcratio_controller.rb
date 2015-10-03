@@ -11,22 +11,29 @@ class BtcltcratioController < ApplicationController
         @ltc = @ltc[0]
         @old = @old[0]
 
-        # TODO read from cached database records instead.
         @ratio = @btc['last_price'] / @ltc['last_price']
 
-        @ratio_minute = getCachedPubticker(TimePeriodConstants::MINUTE)
-        @ratio_hour = getCachedPubticker(TimePeriodConstants::HOUR)
-        @ratio_half_hour = getCachedPubticker(TimePeriodConstants::HALF_HOUR)
-        @ratio_half_day = getCachedPubticker(TimePeriodConstants::HALF_DAY)
-        @ratio_day = getCachedPubticker(TimePeriodConstants::DAY)
+        rtn = []
+
+        list = PubtickerCacherList.new.list
+        list.each { |pc| cpt = getCachedPubticker(pc.getTimePeriod()); puts cpt.to_s; cpt == nil ? nil : rtn.push(cpt); }
+
+        @ratios = rtn;
     end
 
     def getCachedPubticker(timeperiod, tickerSymbolA = 'btcusd', tickerSymbolB = 'ltcusd')
+        rtn = nil
+
         v = JSON.parse CachedPubticker.where(:timeperiod => timeperiod, :ticker_symbol_a => tickerSymbolA, :ticker_symbol_b => tickerSymbolB).to_json
 
-        puts v[0]
+        if v != nil && v.size > 0
+            rtn = v[0]
+            rtn = rtn.merge({"title" => TimePeriodConstants.new.getName(timeperiod)})
+        else
+            puts "getCachedPubticker couldn't find a cached record for timePeriod " + timeperiod.to_s
+        end
 
-        v[0]
+        rtn
     end
 
 end

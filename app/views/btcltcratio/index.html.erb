@@ -12,78 +12,15 @@ It takes <%= "%.3f" % @ratio %> LTC to buy 1 BTC.</br></br>
         <td><b>High</b></td>
         <td><b>Low</b></td>
     </th>
+    <% @ratios.each do |ratio| %>
     <tr>
         <td/>
-        <td>minute</td>
-        <td><%= "%.3f" % @ratio_minute['avg'] %></td>
-        <td><%= "%.3f" % @ratio_minute['high'] %></td>
-        <td><%= "%.3f" % @ratio_minute['low'] %></td>
+        <td><%= ratio['title'] %></td>
+        <td><%= "%.3f" % ratio['avg'] %></td>
+        <td><%= "%.3f" % ratio['high'] %></td>
+        <td><%= "%.3f" % ratio['low'] %></td>
     </tr>
-    <tr>
-        <td/>
-        <td>30 minutes</td>
-        <td><%= "%.3f" % @ratio_half_hour['avg'] %></td>
-        <td><%= "%.3f" % @ratio_half_hour['high'] %></td>
-        <td><%= "%.3f" % @ratio_half_hour['low'] %></td>
-    </tr>
-    <tr>
-        <td/>
-        <td>hour</td>
-        <td><%= "%.3f" % @ratio_hour['avg'] %></td>
-        <td><%= "%.3f" % @ratio_hour['high'] %></td>
-        <td><%= "%.3f" % @ratio_hour['low'] %></td>
-    </tr>
-    <tr>
-        <td/>
-        <td>half day</td>
-        <td><%= "%.3f" % @ratio_half_day['avg'] %></td>
-        <td><%= "%.3f" % @ratio_half_day['high'] %></td>
-        <td><%= "%.3f" % @ratio_half_day['low'] %></td>
-    </tr>
-    <tr>
-        <td/>
-        <td>day</td>
-        <td><%= "%.3f" % @ratio_day['avg'] %></td>
-        <td><%= "%.3f" % @ratio_day['high'] %></td>
-        <td><%= "%.3f" % @ratio_day['low'] %></td>
-    </tr>
-    <!--
-    <tr>
-        <td/>
-        <td>week</td>
-        <td><%= "%.3f" % @ratio_minute['avg'] %></td>
-        <td><%= "%.3f" % @ratio_minute['high'] %></td>
-        <td><%= "%.3f" % @ratio_minute['low'] %></td>
-    </tr>
-    <tr>
-        <td/>
-        <td>month</td>
-        <td><%= "%.3f" % @ratio_minute['avg'] %></td>
-        <td><%= "%.3f" % @ratio_minute['high'] %></td>
-        <td><%= "%.3f" % @ratio_minute['low'] %></td>
-    </tr>
-    <tr>
-        <td/>
-        <td>three months</td>
-        <td><%= "%.3f" % @ratio_minute['avg'] %></td>
-        <td><%= "%.3f" % @ratio_minute['high'] %></td>
-        <td><%= "%.3f" % @ratio_minute['low'] %></td>
-    </tr>
-    <tr>
-        <td/>
-        <td>six months</td>
-        <td><%= "%.3f" % @ratio_minute['avg'] %></td>
-        <td><%= "%.3f" % @ratio_minute['high'] %></td>
-        <td><%= "%.3f" % @ratio_minute['low'] %></td>
-    </tr>
-    <tr>
-        <td/>
-        <td>year</td>
-        <td><%= "%.3f" % @ratio_minute['avg'] %></td>
-        <td><%= "%.3f" % @ratio_minute['high'] %></td>
-        <td><%= "%.3f" % @ratio_minute['low'] %></td>
-    </tr>
-    -->
+    <% end %>
 </table>
 <br/>
 </br>

@@ -3,8 +3,11 @@ require 'pubticker_cachers/pubticker_cacher'
 
 class ThirtyDaysPubtickerCacher < PubtickerCacher
     def updateCache
-        writeRatiosToCache(TimePeriodConstants::THIRTY_DAYS, 'btcusd', 'ltcusd')
+        writeRatiosToCache('btcusd', 'ltcusd')
+    end
+
+    def getTimePeriod
+        TimePeriodConstants::THIRTY_DAYS
     end
 
 end
-

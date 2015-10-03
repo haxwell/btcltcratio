@@ -3,8 +3,11 @@ require 'pubticker_cachers/pubticker_cacher'
 
 class HourPubtickerCacher < PubtickerCacher
     def updateCache
-        writeRatiosToCache(TimePeriodConstants::HOUR, 'btcusd', 'ltcusd')
+        writeRatiosToCache('btcusd', 'ltcusd')
+    end
+
+    def getTimePeriod
+        TimePeriodConstants::HOUR
     end
 
 end
-

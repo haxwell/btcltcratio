@@ -17,6 +17,16 @@ class TimePeriodConstants
                  THREE_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 3)).to_s },
                  WEEK => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 7)).to_s }
         }
+
+        @idToNameMap = { MINUTE => "minute",
+                         HALF_HOUR => "30 minutes",
+                         HOUR => "hour",
+                         HALF_DAY => "half day",
+                         DAY => "day",
+                         THREE_DAYS => "3 days",
+                         WEEK => "week"
+        }
+                    
     end
 
     def getBeginDate(timePeriod, endTime)
@@ -31,5 +41,9 @@ class TimePeriodConstants
         end
 
         func.call(endTime)
+    end
+
+    def getName(timePeriod)
+        @idToNameMap.fetch(timePeriod)
     end
 end
