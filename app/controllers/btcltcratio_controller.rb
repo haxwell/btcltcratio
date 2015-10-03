@@ -5,9 +5,11 @@ class BtcltcratioController < ApplicationController
         # Get the most recent pubticker value from the DB
         @btc = JSON.parse Pubticker.where('tickerSymbol' => 'btcusd').order('id desc').limit(1).to_json
         @ltc = JSON.parse Pubticker.where('tickerSymbol' => 'ltcusd').order('id desc').limit(1).to_json
+        @old = JSON.parse Pubticker.order('id asc').limit(1).to_json
 
         @btc = @btc[0]
         @ltc = @ltc[0]
+        @old = @old[0]
 
         # TODO read from cached database records instead.
         @ratio = @btc['last_price'] / @ltc['last_price']
