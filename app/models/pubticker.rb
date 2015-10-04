@@ -38,6 +38,9 @@ class Pubticker < ActiveRecord::Base
 
     private
     def populate(responseHash)
+        # TODO add some code to handle when the service does not return data, such as may
+        #  happen during scheduled downtime, or catastrophic error, or swarms of server
+        #  killing kittens.
         self.mid = getHashValueForSymbolKey(:mid, responseHash) 
         self.bid = getHashValueForSymbolKey(:bid, responseHash) 
         self.ask = getHashValueForSymbolKey(:ask, responseHash) 
