@@ -44,6 +44,7 @@ module Btcratio
             ltc.tickerSymbol = 'ltcusd'
             ltc.populateUsingInternetAPI
 
+            # TODO: add some exception handling here. 
             btc.save
             ltc.save
         end
