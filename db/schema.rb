@@ -11,59 +11,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801021533) do
+ActiveRecord::Schema.define(version: 20151004205213) do
 
   create_table "btcpubtickers", force: :cascade do |t|
-    t.float    "mid"
-    t.float    "bid"
-    t.float    "ask"
-    t.float    "last_price"
-    t.float    "low"
-    t.float    "high"
-    t.float    "volume"
-    t.float    "timestamp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float    "mid",        limit: 24
+    t.float    "bid",        limit: 24
+    t.float    "ask",        limit: 24
+    t.float    "last_price", limit: 24
+    t.float    "low",        limit: 24
+    t.float    "high",       limit: 24
+    t.float    "volume",     limit: 24
+    t.float    "timestamp",  limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "cached_pubtickers", force: :cascade do |t|
-    t.string   "ticker_symbol_a"
-    t.string   "ticker_symbol_b"
-    t.float    "high"
-    t.float    "low"
-    t.float    "avg"
-    t.float    "period_begin"
-    t.float    "period_end"
-    t.integer  "timeperiod"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "ticker_symbol_a", limit: 255
+    t.string   "ticker_symbol_b", limit: 255
+    t.float    "high",            limit: 24
+    t.float    "low",             limit: 24
+    t.float    "avg",             limit: 24
+    t.string   "period_begin",    limit: 255
+    t.string   "period_end",      limit: 255
+    t.integer  "timeperiod",      limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "ltcpubtickers", force: :cascade do |t|
-    t.float    "mid"
-    t.float    "bid"
-    t.float    "ask"
-    t.float    "last_price"
-    t.float    "low"
-    t.float    "high"
-    t.float    "volume"
-    t.float    "timestamp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float    "mid",        limit: 24
+    t.float    "bid",        limit: 24
+    t.float    "ask",        limit: 24
+    t.float    "last_price", limit: 24
+    t.float    "low",        limit: 24
+    t.float    "high",       limit: 24
+    t.float    "volume",     limit: 24
+    t.float    "timestamp",  limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "pubtickers", force: :cascade do |t|
-    t.float    "mid"
-    t.float    "bid"
-    t.float    "ask"
-    t.float    "last_price"
-    t.float    "low"
-    t.float    "high"
-    t.float    "volume"
-    t.float    "timestamp"
-    t.string   "tickerSymbol"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.float    "mid",          limit: 24
+    t.float    "bid",          limit: 24
+    t.float    "ask",          limit: 24
+    t.float    "last_price",   limit: 24
+    t.float    "low",          limit: 24
+    t.float    "high",         limit: 24
+    t.float    "volume",       limit: 24
+    t.string   "timestamp",    limit: 255
+    t.string   "tickerSymbol", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
 end

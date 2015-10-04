@@ -24,8 +24,8 @@ It takes <%= "%.3f" % @ratio %> LTC to buy 1 BTC.</br></br>
 </table>
 <br/>
 </br>
-These ratios are as of <%= Time.at(@btc['timestamp']).strftime("%l:%M:%S %p  %B %d, %Y") %></br>
-The oldest record in the database is from <%= Time.at(@old['timestamp']).strftime("%l:%M:%S %p  %B %d, %Y") %></br>
+These ratios are as of <%= Time.at(@btc['timestamp'].to_f).strftime("%l:%M:%S %p  %B %d, %Y") %></br>
+The oldest record in the database is from <%= Time.at(@old['timestamp'].to_f).strftime("%l:%M:%S %p  %B %d, %Y") %></br>
 </br>
 <br/><br/>
 <div class="beggin_strip">If this site helped you become wealthier, send a brotha a couple coin. [insert btc addr here] [insert ltc addr here]</div>
