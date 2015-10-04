@@ -13,18 +13,18 @@ class TimePeriodConstants
     YEAR = 12
 
     def initialize 
-        @map = { MINUTE => lambda{ |periodEndTime| (periodEndTime - 60).to_s },
-                 HALF_HOUR => lambda{ |periodEndTime| (periodEndTime - (60 * 30)).to_s },
-                 HOUR => lambda{ |periodEndTime| (periodEndTime - (60 * 60)).to_s },
-                 HALF_DAY => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 12)).to_s },
-                 DAY => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24)).to_s },
-                 THREE_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 3)).to_s },
-                 WEEK => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 7)).to_s },
-                 THIRTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 30)).to_s },
-                 SIXTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 60)).to_s },
-                 NINETY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 90)).to_s },
-                 ONE_HUNDRED_EIGHTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 180)).to_s },
-                 YEAR => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 365)).to_s }
+        @map = { MINUTE => lambda{ |periodEndTime| (periodEndTime - 60) },
+                 HALF_HOUR => lambda{ |periodEndTime| (periodEndTime - (60 * 30)) },
+                 HOUR => lambda{ |periodEndTime| (periodEndTime - (60 * 60)) },
+                 HALF_DAY => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 12)) },
+                 DAY => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24)) },
+                 THREE_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 3)) },
+                 WEEK => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 7)) },
+                 THIRTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 30)) },
+                 SIXTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 60)) },
+                 NINETY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 90)) },
+                 ONE_HUNDRED_EIGHTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 180)) },
+                 YEAR => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 365)) }
         }
 
         @idToNameMap = { MINUTE => "minute",
