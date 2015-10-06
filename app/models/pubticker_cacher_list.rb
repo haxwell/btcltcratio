@@ -13,6 +13,7 @@ require 'pubticker_cachers/year_pubticker_cacher'
 
 class PubtickerCacherList
     def list
+        # These must be in order by length of time
             a = [ MinutePubtickerCacher.new,
                 HalfHourPubtickerCacher.new, HourPubtickerCacher.new,
                 HalfDayPubtickerCacher.new, DayPubtickerCacher.new, ThreeDaysPubtickerCacher.new,
