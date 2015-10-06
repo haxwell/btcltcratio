@@ -1,6 +1,6 @@
 class PeriodRatioCalculator
 
-    def calculate(pubtickerArrayA, pubtickerArrayB)
+    def calculatePeriodRatios(pubtickerArrayA, pubtickerArrayB)
         unless pubtickerArrayA.size == pubtickerArrayB.size 
             raise ArgumentError, "List of currency tickers needs to be equal lengths." 
         end
@@ -24,6 +24,31 @@ class PeriodRatioCalculator
 
         #return it all
         {:high => high, :low => low, :avg => avg}
+    end
+
+    def calculateOpenRatio(arrA, arrB)
+        arrA[-1].last_price / arrB[-1].last_price
+    end
+
+    def calculateCloseRatio(arrA, arrB)
+        arrA[0].last_price / arrB[0].last_price
+    end
+
+    def calculateOpenAndCloseDelta(openRatio, closeRatio)
+        rtn = []
+        rtn << openRatio - closeRatio
+
+        unless rtn[0] == 0
+            rtn[0] *= -1
+        end
+
+        rtn << ((openRatio - closeRatio) / openRatio)
+
+        unless rtn[1] == 0
+            rtn[1] *= -1
+        end
+
+        rtn
     end
 end
 

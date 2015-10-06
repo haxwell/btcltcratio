@@ -11,19 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006003505) do
+ActiveRecord::Schema.define(version: 20151006014128) do
 
   create_table "cached_pubtickers", force: :cascade do |t|
-    t.string   "ticker_symbol_a", limit: 255
-    t.string   "ticker_symbol_b", limit: 255
-    t.float    "high",            limit: 24
-    t.float    "low",             limit: 24
-    t.float    "avg",             limit: 24
-    t.string   "period_begin",    limit: 255
-    t.string   "period_end",      limit: 255
-    t.integer  "timeperiod",      limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "ticker_symbol_a",  limit: 255
+    t.string   "ticker_symbol_b",  limit: 255
+    t.float    "high",             limit: 24
+    t.float    "low",              limit: 24
+    t.float    "avg",              limit: 24
+    t.string   "period_begin",     limit: 255
+    t.string   "period_end",       limit: 255
+    t.integer  "timeperiod",       limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.float    "open",             limit: 24
+    t.float    "close",            limit: 24
+    t.float    "delta",            limit: 24
+    t.float    "delta_percentage", limit: 24
   end
 
   create_table "pubtickers", force: :cascade do |t|

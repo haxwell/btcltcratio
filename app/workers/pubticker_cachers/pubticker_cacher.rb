@@ -77,10 +77,15 @@ class PubtickerCacher
         end
 
         # send arrays of pubticker objects to calculator
-        ratios = PeriodRatioCalculator.new.calculate(ba1, ba2)
+        calc = PeriodRatioCalculator.new
+        open = calc.calculateOpenRatio(ba1, ba2)
+        close = calc.calculateCloseRatio(ba1, ba2)
+        delta = calc.calculateOpenAndCloseDelta(open, close)
+
+        ratios = calc.calculatePeriodRatios(ba1, ba2)
 
         # add some extra columns
-        ratios = ratios.merge({:ticker_symbol_a => tickerSymbolA, :ticker_symbol_b => tickerSymbolB, :period_begin => periodBeginTime.to_f, :period_end => periodEndTime.to_f, :timeperiod => timePeriod})
+        ratios = ratios.merge({:ticker_symbol_a => tickerSymbolA, :ticker_symbol_b => tickerSymbolB, :period_begin => periodBeginTime.to_f, :period_end => periodEndTime.to_f, :timeperiod => timePeriod, :open => open, :close => close, :delta => delta[0], :delta_percentage => delta[1]})
 
         puts "Calculated Ratios: " + ratios.to_s
 
