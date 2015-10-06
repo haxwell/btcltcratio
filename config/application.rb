@@ -63,7 +63,11 @@ module Btcratio
 
         sch.every delay.to_s+'s' do
             list = PubtickerCacherList.new.list
-            list.each { |pc| pc.updateCache; }
+            list.each { |pc|
+                if pc.updateCache == nil
+                        break
+                end;
+            }
         end
 
         puts "update-cache thread started."

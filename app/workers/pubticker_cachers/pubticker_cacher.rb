@@ -38,6 +38,7 @@ class PubtickerCacher
     private
     def writeRatiosToCache(tickerSymbolA, tickerSymbolB)
         timePeriod = getTimePeriod()
+        v = nil
 
         if isSufficientPubtickerDataAvailable(timePeriod)
             puts "checking for cached timeperiod " + timePeriod.to_s
@@ -51,8 +52,9 @@ class PubtickerCacher
             (v == nil) ? v = CachedPubticker.new(ratio) : v.update(ratio)
 
             v.save
-            v
         end
+
+        v
     end
 
     private
