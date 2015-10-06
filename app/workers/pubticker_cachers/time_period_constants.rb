@@ -2,24 +2,30 @@ class TimePeriodConstants
     MINUTE = 1
     HALF_HOUR = 2
     HOUR = 3
-    HALF_DAY = 4
-    DAY = 5
-    THREE_DAYS = 6
-    WEEK = 7
-    THIRTY_DAYS = 8
-    SIXTY_DAYS = 9
-    NINETY_DAYS = 10
-    ONE_HUNDRED_EIGHTY_DAYS = 11
-    YEAR = 12
+    THREE_HOURS = 4
+    SIX_HOURS = 5
+    HALF_DAY = 6
+    DAY = 7
+    THREE_DAYS = 8
+    WEEK = 9
+    FIFTEEN_DAYS = 10
+    THIRTY_DAYS = 11
+    SIXTY_DAYS = 12
+    NINETY_DAYS = 13
+    ONE_HUNDRED_EIGHTY_DAYS = 14
+    YEAR = 15
 
     def initialize 
         @map = { MINUTE => lambda{ |periodEndTime| (periodEndTime - 60) },
                  HALF_HOUR => lambda{ |periodEndTime| (periodEndTime - (60 * 30)) },
                  HOUR => lambda{ |periodEndTime| (periodEndTime - (60 * 60)) },
+                 THREE_HOURS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 3)) },
+                 SIX_HOURS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 6)) },
                  HALF_DAY => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 12)) },
                  DAY => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24)) },
                  THREE_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 3)) },
                  WEEK => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 7)) },
+                 FIFTEEN_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 15)) },
                  THIRTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 30)) },
                  SIXTY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 60)) },
                  NINETY_DAYS => lambda{ |periodEndTime| (periodEndTime - (60 * 60 * 24 * 90)) },
@@ -30,10 +36,13 @@ class TimePeriodConstants
         @idToNameMap = { MINUTE => "minute",
                          HALF_HOUR => "30 minutes",
                          HOUR => "hour",
+                         THREE_HOURS => "3 hours",
+                         SIX_HOURS => "6 hours",
                          HALF_DAY => "half day",
                          DAY => "day",
                          THREE_DAYS => "3 days",
                          WEEK => "week",
+                         FIFTEEN_DAYS => "15 days",
                          THIRTY_DAYS => "30 days",
                          SIXTY_DAYS => "60 days",
                          NINETY_DAYS => "90 days",
