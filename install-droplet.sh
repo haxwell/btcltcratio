@@ -16,10 +16,11 @@ echo
 
 cd ~
 apt-get update 
-#apt-get install -y unzip git dpkg-dev authbind
-#mkdir work
+apt-get install -y git gcc make libgdbm-dev 
+mkdir work
 sleep 5
 
+echo
 echo ------------------------*
 echo Settin\' up MySQL
 echo ------------------------*
@@ -33,9 +34,35 @@ echo "cd ~/apps/btcltcratio && mysql -u root -p < ./install/init_btcratio_db.sql
 bash -c "cd ~/apps/btcltcratio && mysql -u root -p < ./install/init_btcratio_db.sql"
 
 echo ------------------------*
+echo Settin\' up zlib
+echo ------------------------*
+echo
+
+cd work
+curl -# -L  http://zlib.net/zlib-1.2.8.tar.gz > zlib-1.2.8.tar.gz
+tar -xvf zlib-1.2.8.tar.gz
+mv zlib-1.2.8 ~/apps
+cd ~/apps/zlib-1.2.8
+./configure
+make
+make install
+echo 
+echo Completed zlib setup....
+sleep 5
+
+echo ------------------------*
 echo Settin\' up Ruby
 echo ------------------------*
 echo
+
+cd ~/work
+curl -# -L https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.bz2 > ruby-2.2.3.tar.bz2
+tar -xvf ruby-2.2.3.tar.bz2
+mv ruby-2.2.3 ~/apps
+cd ~/apps
+./configure
+make
+make install
 
 echo ------------------------*
 echo Settin\' up Rails
