@@ -50,9 +50,9 @@ echo
 cd ~/work
 apt-get install -y clang-3.5 
 curl -# -L  curl -# -L https://nodejs.org/dist/v4.1.2/node-v4.1.2.tar.gz > node-v4.1.2.tar.gz
-tar -xvf node-4.1.2.tar.gz
-mv node-4.1.2 ~/apps
-cd ~/apps/node-4.1.2
+tar -xvf node-v4.1.2.tar.gz
+mv node-v4.1.2 ~/apps
+cd ~/apps/node-v4.1.2
 ./configure
 make
 make install
@@ -94,7 +94,7 @@ echo Settin\' up Rails
 echo ------------------------*
 echo
 
-gem install rails
+gem install --no-rdoc --no-ri rails
 
 cd ~/apps/btcltcratio
 bundle install
