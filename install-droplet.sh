@@ -100,4 +100,5 @@ cd ~/apps/btcltcratio
 bundle install
 
 rake db:reset
+chown btcratio log/development.log
 
