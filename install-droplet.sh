@@ -61,7 +61,7 @@ cd ~/work
 curl -# -L https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.bz2 > ruby-2.2.3.tar.bz2
 tar -xvf ruby-2.2.3.tar.bz2
 mv ruby-2.2.3 ~/apps
-cd ~/apps
+cd ~/apps/ruby-2.2.3
 ./configure
 make
 make install
