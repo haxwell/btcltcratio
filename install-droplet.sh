@@ -5,7 +5,9 @@
 
 # This script should be run as sudo
 if [ "$(id -u)" != 0 ]; then
+    echo
     echo "You should run this as root."
+    echo
     exit 1
 fi
 
