@@ -1,6 +1,9 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'btcratio/models/pubticker'
+require 'btcratio/models/cached_pubticker'
+require 'btcratio/constants/time_period_constants'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -36,13 +39,11 @@ module Btcratio
         delay = REFRESH_PERIOD_IN_SECONDS 
 
         sch.every delay.to_s+'s' do 
-            btc = Pubticker.new
-            btc.tickerSymbol = 'btcusd'
-            btc.populateUsingInternetAPI
+            pr = PubtickerReader.new('btcusd')
+            btc = Pubticker.new(pr.read)
 
-            ltc = Pubticker.new
-            ltc.tickerSymbol = 'ltcusd'
-            ltc.populateUsingInternetAPI
+            pr = PubtickerReader.new('ltcusd')
+            ltc = Pubticker.new(pr.read)
 
             # TODO: add some exception handling here. 
             btc.save
