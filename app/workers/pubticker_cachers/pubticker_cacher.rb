@@ -1,4 +1,5 @@
-require 'pubticker_cachers/period_ratio_calculator'
+require './app/workers/pubticker_cachers/period_ratio_calculator'
+require 'btcratio/models/pubticker'
 
 class PubtickerCacher
 
@@ -41,12 +42,7 @@ class PubtickerCacher
         v = nil
 
         if isSufficientPubtickerDataAvailable(timePeriod)
-            puts "checking for cached timeperiod " + timePeriod.to_s
             v = CachedPubticker.find_by(:timeperiod => timePeriod)
-
-            (v == nil) ? (puts "No cached records for timeperiod " + timePeriod.to_s) : (puts "Found cached records for timeperiod " + timePeriod.to_s)
-
-            puts "2 WriteRatiosToCache for timePeriod = " + timePeriod.to_s
             ratio = getAverageLowAndHighRatios(timePeriod, tickerSymbolA, tickerSymbolB) 
 
             (v == nil) ? v = CachedPubticker.new(ratio) : v.update(ratio)
