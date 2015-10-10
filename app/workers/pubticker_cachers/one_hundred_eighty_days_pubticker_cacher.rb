@@ -1,5 +1,5 @@
-require 'pubticker_cachers/time_period_constants'
-require 'pubticker_cachers/pubticker_cacher'
+require 'btcratio/constants/time_period_constants'
+require './app/workers/pubticker_cachers/pubticker_cacher'
 
 class OneHundredEightyDaysPubtickerCacher < PubtickerCacher
     def updateCache
