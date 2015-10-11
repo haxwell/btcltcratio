@@ -102,3 +102,13 @@ bundle install
 rake db:reset
 chown btcratio log/development.log
 
+echo ---------------------------------------*
+echo Settin\' up the other btcratio projects
+echo ---------------------------------------*
+echo
+
+cd ~/apps
+git clone https://github.com/haxwell/btcratio_gem.git
+git clone https://github.com/haxwell/btcratio_view.git
+
+
