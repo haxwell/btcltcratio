@@ -1,0 +1,21 @@
+
+Installing btcratio on a completely new DigitalOcean droplet.
+
+Assuming Ubuntu 14.04.
+
+0) 
+> sudo visudo
+TODO: add the environment variables to keep from the btcratio user environment
+
+1) Create the btcratio user -
+> sudo adduser btcratio --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password && echo "btcratio:password11" | sudo chpasswd && sudo adduser btcratio sudo
+
+2) Login as the btcratio user
+
+3) Get the btcratio repository
+> cd ~ && mkdir apps && cd apps && sudo apt-get install -y git && git clone https://github.com/haxwell/btcltcratio.git && cd btcltcratio
+
+4) Run the btcratio install script
+> sudo ./install-droplet.sh
+
+
