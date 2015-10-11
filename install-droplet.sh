@@ -42,11 +42,29 @@ echo
 
 apt-get install -y libsqlite3-dev
 
+
+echo -------------------------------*
+echo Settin\' up Passenger and Nginx
+echo -------------------------------*
+echo
+
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main" > /etc/apt/sources.list.d/passenger.list
+chown root: /etc/apt/sources.list.d/passenger.list
+chmod 600 /etc/apt/sources.list.d/passenger.list
+apt-get update
+apt-get install nginx-extras passenger
+rm /usr/bin/ruby
+ln -s /usr/local/bin/ruby /usr/bin/ruby
+
+sed -i -e 's/# pass/pass/g' /etc/nginx/nginx.conf
+sed -i -e 's/listen 80 default_server/# listen 80 default_server/g' /etc/nginx/sites-available/default
+sed -i -e 's/listen [::]:80 default_server ipv6only=on/# listen [::]:80 default_server ipv6only=on/g' /etc/nginx/sites-available/default
+
 echo ------------------------*
 echo Settin\' up node.js
 echo ------------------------*
 echo
-
 cd ~/work
 apt-get install -y clang-3.5 
 curl -# -L  curl -# -L https://nodejs.org/dist/v4.1.2/node-v4.1.2.tar.gz > node-v4.1.2.tar.gz
@@ -109,6 +127,24 @@ echo
 
 cd ~/apps
 git clone https://github.com/haxwell/btcratio_gem.git
+cd ~/apps/btcratio_gem
+gem uninstall btcratio
+gem build btcratio.gemspec
+gem install btcratio
+
+cd ~/apps
 git clone https://github.com/haxwell/btcratio_view.git
+cd ~/apps/btcratio_view
+sed -i -e "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
+bundle install
+
+echo "server {
+listen 80 default_server;
+passenger_enabled on;
+passenger_app_env development;
+root /home/btcratio/apps/btcratio_view/public;
+}" > /etc/nginx/sites-available/btcratio_view
+
+ln -s /etc/nginx/sites-available/btcratio_view /etc/nginx/sites-enabled/btcratio_view
 
 
