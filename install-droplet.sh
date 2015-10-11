@@ -59,7 +59,7 @@ ln -s /usr/local/bin/ruby /usr/bin/ruby
 
 sed -i -e 's/# pass/pass/g' /etc/nginx/nginx.conf
 sed -i -e 's/listen 80 default_server/# listen 80 default_server/g' /etc/nginx/sites-available/default
-sed -i -e 's/listen [::]:80 default_server ipv6only=on/# listen [::]:80 default_server ipv6only=on/g' /etc/nginx/sites-available/default
+sed -i -e 's/listen [::]:80 default_server/# listen [::]:80 default_server/g' /etc/nginx/sites-available/default
 
 #echo ------------------------*
 #echo Settin\' up node.js
@@ -112,16 +112,16 @@ echo Settin\' up Rails
 echo ------------------------*
 echo
 
+gem install --no-rdoc --no-ri rails
+
 cd ~/apps/btcratio_gem
 gem uninstall btcratio
 gem build btcratio.gemspec
 gem install btcratio
 
 cd ~/apps/btcltcratio
-sed -i -e "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
+sed -i -e "s/# gem 'therubyracer'/gem 'therubyracer'/g" Gemfile
 bundle install
-
-gem install --no-rdoc --no-ri rails
 
 rake db:reset
 chown btcratio log/development.log
@@ -132,7 +132,7 @@ echo ---------------------------------------*
 echo
 
 cd ~/apps/btcratio_view
-sed -i -e "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
+sed -i -e "s/# gem 'therubyracer'/gem 'therubyracer'/g" Gemfile
 bundle install
 
 echo "server {
