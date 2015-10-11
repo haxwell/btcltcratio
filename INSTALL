@@ -13,7 +13,7 @@ TODO: add the environment variables to keep from the btcratio user environment
 2) Login as the btcratio user
 
 3) Get the btcratio repository
-> cd ~ && mkdir apps && cd apps && sudo apt-get install -y git && git clone https://github.com/haxwell/btcltcratio.git && cd btcltcratio
+> cd ~ && mkdir apps && cd apps && sudo apt-get install -y git && git clone https://github.com/haxwell/btcltcratio.git && git clone https://github.com/haxwell/btcratio_gem.git && git clone https://github.com/haxwell/btcratio_view.git && cd btcltcratio
 
 4) Run the btcratio install script
 > sudo ./install-droplet.sh
