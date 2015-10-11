@@ -57,6 +57,7 @@ apt-get install -y nginx-extras passenger
 rm /usr/bin/ruby
 ln -s /usr/local/bin/ruby /usr/bin/ruby
 
+
 sed -i -e 's/# pass/pass/g' /etc/nginx/nginx.conf
 sed -i -e 's/listen 80 default_server/# listen 80 default_server/g' /etc/nginx/sites-available/default
 sed -i -e 's/listen [::]:80 default_server/# listen [::]:80 default_server/g' /etc/nginx/sites-available/default
