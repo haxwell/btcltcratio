@@ -53,7 +53,7 @@ echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main" >
 chown root: /etc/apt/sources.list.d/passenger.list
 chmod 600 /etc/apt/sources.list.d/passenger.list
 apt-get update
-apt-get install nginx-extras passenger
+apt-get install -y nginx-extras passenger
 rm /usr/bin/ruby
 ln -s /usr/local/bin/ruby /usr/bin/ruby
 
