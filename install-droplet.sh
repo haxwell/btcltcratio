@@ -61,19 +61,19 @@ sed -i -e 's/# pass/pass/g' /etc/nginx/nginx.conf
 sed -i -e 's/listen 80 default_server/# listen 80 default_server/g' /etc/nginx/sites-available/default
 sed -i -e 's/listen [::]:80 default_server ipv6only=on/# listen [::]:80 default_server ipv6only=on/g' /etc/nginx/sites-available/default
 
-echo ------------------------*
-echo Settin\' up node.js
-echo ------------------------*
-echo
-cd ~/work
-apt-get install -y clang-3.5 
-curl -# -L  curl -# -L https://nodejs.org/dist/v4.1.2/node-v4.1.2.tar.gz > node-v4.1.2.tar.gz
-tar -xvf node-v4.1.2.tar.gz
-mv node-v4.1.2 ~/apps
-cd ~/apps/node-v4.1.2
-./configure
-make
-make install
+#echo ------------------------*
+#echo Settin\' up node.js
+#echo ------------------------*
+#echo
+#cd ~/work
+#apt-get install -y clang-3.5 
+#curl -# -L  curl -# -L https://nodejs.org/dist/v4.1.2/node-v4.1.2.tar.gz > node-v4.1.2.tar.gz
+#tar -xvf node-v4.1.2.tar.gz
+#mv node-v4.1.2 ~/apps
+#cd ~/apps/node-v4.1.2
+#./configure
+#make
+#make install
 
 echo ------------------------*
 echo Settin\' up zlib
@@ -112,28 +112,25 @@ echo Settin\' up Rails
 echo ------------------------*
 echo
 
-gem install --no-rdoc --no-ri rails
-
-cd ~/apps/btcltcratio
-bundle install
-
-rake db:reset
-chown btcratio log/development.log
-
-echo ---------------------------------------*
-echo Settin\' up the other btcratio projects
-echo ---------------------------------------*
-echo
-
-cd ~/apps
-git clone https://github.com/haxwell/btcratio_gem.git
 cd ~/apps/btcratio_gem
 gem uninstall btcratio
 gem build btcratio.gemspec
 gem install btcratio
 
-cd ~/apps
-git clone https://github.com/haxwell/btcratio_view.git
+cd ~/apps/btcltcratio
+sed -i -e "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
+bundle install
+
+gem install --no-rdoc --no-ri rails
+
+rake db:reset
+chown btcratio log/development.log
+
+echo ---------------------------------------*
+echo Settin\' up btcratio_view
+echo ---------------------------------------*
+echo
+
 cd ~/apps/btcratio_view
 sed -i -e "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
 bundle install
