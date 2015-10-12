@@ -61,7 +61,7 @@ ln -s /usr/local/bin/ruby /usr/bin/ruby
 sed -i -e 's/# pass/pass/g' /etc/nginx/nginx.conf
 sed -i -e 's/\/usr\/bin\/passenger_free_ruby/\/usr\/local\/bin\/ruby/g' /etc/nginx/nginx.conf
 sed -i -e 's/listen 80 default_server/# listen 80 default_server/g' /etc/nginx/sites-available/default
-sed -i -e 's/listen [::]:80 default_server/# listen [::]:80 default_server/g' /etc/nginx/sites-available/default
+sed -i -e 's/listen \[::\]:80 default_server/# listen \[::\]:80 default_server/g' /etc/nginx/sites-available/default
 
 #echo ------------------------*
 #echo Settin\' up node.js
