@@ -9,19 +9,23 @@ As the application begins, it launches two threads. One to poll the web
 service, and another to calculate the ratio over various time periods. These
 are called the 'polling thread', and the 'update cache thread' respectively.
 
-The polling thread creates a Pubticker for each currency (bitcoin or litecoin)
-and tells the Pubticker to populate itself. Pubticker is an ActiveRecord
-so it can be considered a row in the Pubticker table in the database. 
+The polling thread uses a PubtickerReader to get the data which it then puts
+into a Pubticker object. Pubticker is an ActiveRecord so it can be considered
+a row in the Pubticker table in the database. 
 
 The update cache thread uses a collection of worker classes called 
-PubtickerCachers to do its work. For each PubtickerCacher in a 
-PubtickerCacherList, the thread tells it to do its thing. Each PubtickerCacher
-is written to do the necessary calculations for its assigned time period.
-So, for instance, there is a WeekPubtickerCacher which reads Pubticker table
-rows for the past week, and creates a single row in the PubtickerCacher
-table with the values it calculates.
+PubtickerCachers to do its work. For each PubtickerCacher, the thread tells 
+it to do its thing. Each PubtickerCacher is written to do the necessary 
+calculations for its assigned time period. So, for instance, there is a 
+WeekPubtickerCacher which reads Pubticker table rows for the past week, and 
+creates a single row in the PubtickerCacher table with the values it calculates.
 
-And, in a nutshell, thats how it all works.
+The project is divided up between a data recording portion (btcltcratio), a
+view or UI portion which reads the data and presents it to the user, and a
+gem which contains code the two projects share.
+
+There is an INSTALL script which can be used to easily set up a DigitalOcean
+droplet from scratch.
 
 == README
 
