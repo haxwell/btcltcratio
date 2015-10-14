@@ -4,6 +4,7 @@ require 'rails/all'
 require 'btcratio/models/pubticker'
 require 'btcratio/models/cached_pubticker'
 require 'btcratio/constants/time_period_constants'
+require './app/workers/pubticker_reader'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -37,13 +38,12 @@ module Btcratio
         sch = Rufus::Scheduler.new
 
         delay = REFRESH_PERIOD_IN_SECONDS 
+        
+        pr = PubtickerReader.new
 
         sch.every delay.to_s+'s' do 
-            pr = PubtickerReader.new('btcusd')
-            btc = Pubticker.new(pr.read)
-
-            pr = PubtickerReader.new('ltcusd')
-            ltc = Pubticker.new(pr.read)
+            btc = Pubticker.new(pr.read('btcusd'))
+            ltc = Pubticker.new(pr.read('ltcusd'))
 
             # TODO: add some exception handling here. 
             btc.save
@@ -63,8 +63,7 @@ module Btcratio
         delay = UPDATE_CACHE_PERIOD_IN_SECONDS 
 
         sch.every delay.to_s+'s' do
-            list = PubtickerCacherList.new.list
-            list.each { |pc|
+            PubtickerCacherList.list.each { |pc|
                 if pc.updateCache == nil
                         break
                 end;

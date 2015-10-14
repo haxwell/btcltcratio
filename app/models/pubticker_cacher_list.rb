@@ -15,23 +15,40 @@ require './app/workers/pubticker_cachers/one_hundred_eighty_days_pubticker_cache
 require './app/workers/pubticker_cachers/year_pubticker_cacher'
 
 class PubtickerCacherList
-    def list
+    @@minute = MinutePubtickerCacher.new
+
+                @@halfHour = HalfHourPubtickerCacher.new
+                @@hour = HourPubtickerCacher.new
+                @@threeHours = ThreeHoursPubtickerCacher.new
+                @@sixHours = SixHoursPubtickerCacher.new
+                @@halfDay = HalfDayPubtickerCacher.new
+                @@day = DayPubtickerCacher.new
+                @@threeDays = ThreeDaysPubtickerCacher.new
+                @@week = WeekPubtickerCacher.new
+                @@fifteenDays = FifteenDaysPubtickerCacher.new
+                @@thirtyDays = ThirtyDaysPubtickerCacher.new
+                @@sixtyDays = SixtyDaysPubtickerCacher.new
+                @@ninetyDays = NinetyDaysPubtickerCacher.new
+                @@oneHundredEightyDays = OneHundredEightyDaysPubtickerCacher.new
+                @@year = YearPubtickerCacher.new
+
+
+    def self.list
         # These must be in order by length of time
-            a = [ MinutePubtickerCacher.new,
-                HalfHourPubtickerCacher.new,
-                HourPubtickerCacher.new,
-                ThreeHoursPubtickerCacher.new,
-                SixHoursPubtickerCacher.new,
-                HalfDayPubtickerCacher.new,
-                DayPubtickerCacher.new,
-                ThreeDaysPubtickerCacher.new,
-                WeekPubtickerCacher.new,
-                FifteenDaysPubtickerCacher.new,
-                ThirtyDaysPubtickerCacher.new,
-                SixtyDaysPubtickerCacher.new,
-                NinetyDaysPubtickerCacher.new,
-                OneHundredEightyDaysPubtickerCacher.new,
-                YearPubtickerCacher.new
+            a = [ @@minute,
+                  @@halfHour,
+                  @@threeHours,
+                  @@sixHours,
+                  @@halfDay,
+                  @@day,
+                  @@threeDays,
+                  @@week,
+                  @@fifteenDays,
+                  @@thirtyDays,
+                  @@sixtyDays,
+                  @@ninetyDays,
+                  @@oneHundredEightyDays,
+                  @@year
             ]
 
             a
