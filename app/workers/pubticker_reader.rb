@@ -3,11 +3,13 @@ require 'uri'
 
 class PubtickerReader
 
-    def initialize(tickerSymbol)
-        @pubtickerURLFunction = lambda{ "https://api.bitfinex.com/v1/pubticker/" + tickerSymbol }
+    def initialize
+        @pubtickerURLFunction = lambda do |tickerSymbol| 
+            "https://api.bitfinex.com/v1/pubticker/" + tickerSymbol 
+        end
 
-        @jsonResponseFunction = lambda{ 
-            uri = URI.parse(@pubtickerURLFunction.call)
+        @jsonResponseFunction = lambda do |tickerSymbol| 
+            uri = URI.parse(@pubtickerURLFunction.call(tickerSymbol))
 
             req = Net::HTTP::Get.new uri.to_s
 
@@ -17,7 +19,7 @@ class PubtickerReader
 
             rtn = JSON.parse res.body
             rtn.merge({:tickerSymbol => tickerSymbol})
-        }
+        end
     end
 
     def pubtickerURLFunction=(func) 
@@ -28,7 +30,7 @@ class PubtickerReader
         @jsonResponseFunction = func
     end
 
-    def read
-        @jsonResponseFunction.call
+    def read(tickerSymbol)
+        @jsonResponseFunction.call(tickerSymbol)
     end
 end
